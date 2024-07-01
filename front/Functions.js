@@ -1,12 +1,41 @@
-function login(){
-    let loginUser = getUser()
-    let loginPassword = getPassword()
-    if (checkUser(loginUser, loginPassword) > 0 ){
+async function register(){
+    //let loginUser = getUser()
+    //let loginPassword = getPassword()
+    
+    const data = {
+        nombre : getUserSignup(),
+        contraseña : getPasswordSignup(),
+        mail: getMailSignup()
     }
-    else if(checkUser(loginUser, loginPassword) == 0 ){
-        alert("La contraseña es incorrecta ")
+
+    const response = await fetch('http://localhost:3000/addUser',{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify(data),
+    }) 
+
+    if (response.status == 200)
+        alert("registrado correctamente");
+    if (response.status == 204)
+        alert("fallo el registro");
+}
+
+async function login(){
+    const data = {
+        nombre : getUserSignup(),
+        contraseña : getPasswordSignup(),
     }
-    else{
-        alert("El usuario es incorrecto")
-    }
+
+    const response = await fetch('http://localhost:3000/getUser',{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify(data),
+    }) 
+
+    if (response.status == 200)
+        alert("ingreso exitoso");
 }

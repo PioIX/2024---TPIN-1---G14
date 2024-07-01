@@ -31,3 +31,23 @@ signupForm.addEventListener('submit', (event) => {
     const password = document.getElementById('signup-password').value;
     alert(`Sign up attempt for username: ${username}, email: ${email}`);
 });
+
+function getUserLogin() {
+    return document.getElementById('login-username').value;
+}
+
+function getPasswordLogin() {
+    return document.getElementById('login-password').value;
+}
+
+function getUserSignup() {
+    return document.getElementById('signup-username').value;
+}
+
+function getPasswordSignup() {
+    return document.getElementById('signup-password').value;
+}
+
+function getMailSignup() {
+    return document.getElementById('signup-email').value;
+}
