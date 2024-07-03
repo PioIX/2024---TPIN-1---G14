@@ -33,7 +33,7 @@
             <div class="form-group">
                 <input type="password" id="login-password" class="form-control" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <button type="submit" class="btn btn-primary btn-block" onclick="login()">Login</button>
         </form>
         <form id="signup-form" style="display: none;">
             <div class="form-group">
@@ -45,7 +45,7 @@
             <div class="form-group">
                 <input type="password" id="signup-password" class="form-control" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            <button type="submit" class="btn btn-primary btn-block" onclick="register()">Sign Up</button>
         </form>
         <button class="btn btn-secondary btn-block" id="toggle-form-btn">Switch to Sign Up</button>
     </div>
@@ -150,12 +150,7 @@
                 }
             });
 
-            loginForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const username = document.getElementById('login-username').value;
-                const password = document.getElementById('login-password').value;
-                alert(`Login attempt for username: ${username}`);
-            });
+
 
             signupForm.addEventListener('submit', (event) => {
                 event.preventDefault();

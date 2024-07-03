@@ -29,14 +29,15 @@ app.post('/addUser', async function(req,res) {
     }
 })
 
-app.post('/getUser', async function(req,res) {
-    console.log(req.body);
-    let usuarioExistente = await MySql.realizarQuery(`select * from Usuarios where nombre = '${req.body.nombre}' and contraseña = ''${req.body.contraseña}` );
+app.get('/getUser', async function(req,res) {
+    console.log(req.query);
+    let usuarioExistente = await MySql.realizarQuery(`select * from Usuarios where nombre = '${req.query.nombre}' and contraseña = '${req.query.contraseña}'` );
     if (usuarioExistente.length != 0 ) {
-        res.status(204);
-        res.send("usuario ingresado");
+        res.status(200);
+        res.send({res:"usuario ingresado"});
     } else {
-        res.send("usuario o contraseña incorrecta");     
+        res.status(204);
+        res.send({res:"usuario o contraseña incorrecta"});     
     }
 })
 

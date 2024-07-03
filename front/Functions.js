@@ -1,3 +1,5 @@
+// const { url } = require("inspector");
+
 async function register(){
     //let loginUser = getUser()
     //let loginPassword = getPassword()
@@ -24,21 +26,24 @@ async function register(){
 
 async function login(){
     const data = {
-        nombre : getUserSignup(),
-        contraseña : getPasswordSignup(),
+        nombre : getUserLogin(),
+        contraseña : getPasswordLogin(),
     }
 
-    const response = await fetch('http://localhost:3000/getUser',{
-        method:"POST",
+    let url = `http://localhost:3000/getUser?nombre=${data.nombre}&contraseña=${data.contraseña}`
+
+    const response = await fetch(url,{
+        method:"GET",
         headers: {
             "Content-Type": "application/json",
-          },
-        body:JSON.stringify(data),
+          }
     }) 
 
     if (response.status == 200){
         alert("ingreso exitoso");
         changeScreen();
+    }else{
+        alert("el ususario o la contraseña es incorrecta");
     }
 
 }
