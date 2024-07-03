@@ -36,6 +36,9 @@ async function login(){
         body:JSON.stringify(data),
     }) 
 
-    if (response.status == 200)
+    if (response.status == 200){
         alert("ingreso exitoso");
+        changeScreen();
+    }
+
 }

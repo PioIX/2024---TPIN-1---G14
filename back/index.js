@@ -11,10 +11,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/', function(req, res){
-    res.status(200).send({
-        message: 'GET Home route working fine!'
-    });
+app.get('/', async function(req, res){
+    const respuesta = await MySql.realizarQuery("SELECT * FROM Usuarios;")
+    res.send(respuesta)
 });
 
 app.post('/addUser', async function(req,res) {
@@ -30,6 +29,18 @@ app.post('/addUser', async function(req,res) {
     }
 })
 
+app.post('/getUser', async function(req,res) {
+    console.log(req.body);
+    let usuarioExistente = await MySql.realizarQuery(`select * from Usuarios where nombre = '${req.body.nombre}' and contraseña = ''${req.body.contraseña}` );
+    if (usuarioExistente.length != 0 ) {
+        res.status(204);
+        res.send("usuario ingresado");
+    } else {
+        res.send("usuario o contraseña incorrecta");     
+    }
+})
+
 app.listen(port, function(){
     console.log(`Server running in http://localhost:${port}`);
 });
+

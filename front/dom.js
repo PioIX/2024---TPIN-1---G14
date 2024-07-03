@@ -51,3 +51,16 @@ function getPasswordSignup() {
 function getMailSignup() {
     return document.getElementById('signup-email').value;
 }
+
+function changeScreen() {
+    const main = document.getElementById("main");
+    const login = document.getElementById("login");
+    if(main.style.display !== "none") {
+        main.style.display = "none";
+        login.style.display = "";
+    }
+    else {
+        main.style.display = "";
+        login.style.display = "none";
+    }
+}
