@@ -34,10 +34,10 @@ app.get('/getUser', async function(req,res) {
     let usuarioExistente = await MySql.realizarQuery(`select * from Usuarios where nombre = '${req.query.nombre}' and contraseña = '${req.query.contraseña}'` );
     if (usuarioExistente.length != 0 ) {
         res.status(200);
-        res.send({res:"usuario ingresado"});
+        res.send({res:"usuario ingresado", id: `${usuarioExistente[0].id}`});
     } else {
         res.status(204);
-        res.send({res:"usuario o contraseña incorrecta"});     
+        res.send({res:"usuario o contraseña incorrecta",id: usuarioExistente.id});   
     }
 })
 
@@ -49,5 +49,11 @@ app.post('/addPoints', async function(req,res) {
     console.log(req.body);
         await MySql.realizarQuery(`INSERT INTO Usuarios (puntaje)
         VALUES ('${req.body.nombre}', '${req.body.contraseña}', '${req.body.mail}', 0)`);
+        res.send("agregado");     
+})
+
+app.put('/updatePoints', async function(req,res) {
+    console.log(req.body);
+        await MySql.realizarQuery(`UPDATE Usuarios SET puntaje = ${req.body.puntaje} WHERE id = ${req.body.id};`);
         res.send("agregado");     
 })

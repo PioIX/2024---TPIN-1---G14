@@ -9,7 +9,6 @@ loginForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
-    alert(`Login attempt for username: ${username}`);
 });
 
 signupForm.addEventListener('submit', (event) => {
@@ -17,7 +16,6 @@ signupForm.addEventListener('submit', (event) => {
     const username = document.getElementById('signup-username').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
-    alert(`Sign up attempt for username: ${username}, email: ${email}`);
 });
 
 
@@ -203,4 +201,8 @@ function boton10B(){
     const buton2 = document.getElementById("boton10A");
     buton2.disabled = true;
     buton2.style.backgroundColor = "green"
+}
+
+async function botonP() {
+    await actualizarPuntuacion(); 
 }

@@ -1,4 +1,5 @@
 // const { url } = require("inspector");
+var usuarioLoged = 0
 
 async function register(){
     //let loginUser = getUser()
@@ -38,8 +39,10 @@ async function login(){
             "Content-Type": "application/json",
           }
     }) 
-
+    const respuesta = await response.json();
+    console.log(respuesta)
     if (response.status == 200){
+        usuarioLoged = respuesta.id
         alert("ingreso exitoso");
         changeScreen();
     }else{
@@ -48,16 +51,14 @@ async function login(){
 
 }
 
-async function puntaje(){
-    //let loginUser = getUser()
-    //let loginPassword = getPassword()
-    
+async function actualizarPuntuacion(){
     const data = {
-        puntos : puntajeUsuario,
+        puntaje : puntajeUsuario,
+        id: usuarioLoged
     }
 
-    const response = await fetch('http://localhost:3000/addPoints',{
-        method:"POST",
+    const response = await fetch('http://localhost:3000/updatePoints',{
+        method:"PUT",
         headers: {
             "Content-Type": "application/json",
           },
@@ -65,7 +66,7 @@ async function puntaje(){
     }) 
 
     if (response.status == 200)
-        alert("su puntaje es: ", puntajeUsuario);
+        alert("Su puntaje es: " + puntajeUsuario);
     if (response.status == 204)
-        alert("fallo el registro");
+        alert("Su puntaje es: " + puntajeUsuario);
 }
