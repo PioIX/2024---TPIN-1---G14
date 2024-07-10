@@ -45,3 +45,9 @@ app.listen(port, function(){
     console.log(`Server running in http://localhost:${port}`);
 });
 
+app.post('/addPoints', async function(req,res) {
+    console.log(req.body);
+        await MySql.realizarQuery(`INSERT INTO Usuarios (puntaje)
+        VALUES ('${req.body.nombre}', '${req.body.contraseña}', '${req.body.mail}', 0)`);
+        res.send("agregado");     
+})

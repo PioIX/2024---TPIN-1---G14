@@ -47,3 +47,25 @@ async function login(){
     }
 
 }
+
+async function puntaje(){
+    //let loginUser = getUser()
+    //let loginPassword = getPassword()
+    
+    const data = {
+        puntos : puntajeUsuario,
+    }
+
+    const response = await fetch('http://localhost:3000/addPoints',{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify(data),
+    }) 
+
+    if (response.status == 200)
+        alert("su puntaje es: ", puntajeUsuario);
+    if (response.status == 204)
+        alert("fallo el registro");
+}
