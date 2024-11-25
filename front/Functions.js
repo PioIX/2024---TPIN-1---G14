@@ -70,3 +70,4 @@ async function actualizarPuntuacion(){
     if (response.status == 204)
         alert("Su puntaje es: " + puntajeUsuario);
 }
+
