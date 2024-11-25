@@ -51,19 +51,6 @@ async function login(){
 
 }
 
-async function traerTabla() {
-    let url =
-      'http://localhost:4000/getTabla';
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
-    console.log("result: ", result.publicaciones);
-}
-
 async function mostrarRanking() {
     const url = 'http://localhost:3000/getRanking';
     try {
@@ -76,9 +63,13 @@ async function mostrarRanking() {
 
         if (response.status === 200) {
             const ranking = await response.json();
-            const rankingBody = document.getElementById('ranking-body');
-            rankingBody.innerHTML = ''; // Limpia la tabla
+            console.log("el ranking es: ", ranking); // Esto te ayuda a verificar que se recibe correctamente
 
+            // Seleccionamos el cuerpo de la tabla para insertar los datos
+            const rankingBody = document.getElementById('ranking-body');
+            rankingBody.innerHTML = ''; // Limpiamos el contenido anterior
+
+            // Llenamos la tabla con los datos del ranking
             ranking.forEach((item, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -89,16 +80,21 @@ async function mostrarRanking() {
                 rankingBody.appendChild(row);
             });
 
-            // Cambia la vista
-            document.getElementById('main').style.display = 'none';
-            document.getElementById('ranking').style.display = 'block';
+            // Aseguramos que el ranking sea visible
+            
+            document.getElementById('main').style.display = 'block'; // Ocultar la pantalla principal
+            document.getElementById('ranking').style.display = 'block'; // Mostrar el ranking
+
         } else {
             alert('Error al obtener el ranking');
         }
     } catch (error) {
         console.error('Error fetching ranking:', error);
+        alert('Hubo un error al cargar el ranking.');
     }
 }
+
+
 
 function volverAlJuego() {
     document.getElementById('ranking').style.display = 'none';
