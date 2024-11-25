@@ -41,6 +41,29 @@ app.get('/getUser', async function(req,res) {
     }
 })
 
+app.get('/getTabla', async function(req, res) {
+    try {
+        let tabla;
+        tabla = await MySQL.realizarQuery(`SELECT * FROM Usuarios `);
+        res.send({ tabla: tabla });
+    } catch (error) {
+        console.error("Error en /getTabla:", error);
+        res.status(500).send({ error: "Error al obtener la tabla. Intente nuevamente más tarde." });
+    }
+});
+
+app.get('/getRanking', async (req, res) => {
+    try {
+        const query = 'SELECT nombre, puntaje FROM usuarios ORDER BY puntaje DESC';
+        const result = await MySql.query(query);
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error fetching ranking:', error);
+        res.status(500).send('Error retrieving ranking');
+    }
+});
+
+
 app.listen(port, function(){
     console.log(`Server running in http://localhost:${port}`);
 });
@@ -57,3 +80,16 @@ app.put('/updatePoints', async function(req,res) {
         await MySql.realizarQuery(`UPDATE Usuarios SET puntaje = ${req.body.puntaje} WHERE id = ${req.body.id};`);
         res.send("agregado");     
 })
+
+app.post('/updateScore', async (req, res) => {
+    const { id, puntaje } = req.body;
+
+    try {
+        const query = 'UPDATE usuarios SET puntaje = ? WHERE id = ?';
+        await MySql.query(query, [puntaje, id]);
+        res.status(200).send('Puntaje actualizado');
+    } catch (error) {
+        console.error('Error updating score:', error);
+        res.status(500).send('Error updating score');
+    }
+});
